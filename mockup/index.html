@@ -1,0 +1,1049 @@
+<title>Third Shot Social</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Big+Shoulders+Display:wght@700;900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,500&family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: sticky bar → court-diagram hero → bento facility grid → programs → booking stepper with live summary → why-custom table → phased roadmap.
+   Two product looks switched by [data-look] on the root. Each look is a deliberate single theme: Bold is a dark court, Clubhouse is a light clubhouse. */
+:root {
+  color-scheme: dark;
+  --bg: #0b2a43;
+  --surface: #11395a;
+  --surface-2: #164769;
+  --line: #2a5a80;
+  --fg: #eef4f2;
+  --muted: #a3bccb;
+  --accent: #d7f23a;
+  --accent-ink: #0b2a43;
+  --accent-2: #ff8a4c;
+  --court: #2c6a95;
+  --court-line: #eef4f2;
+  --kitchen: #2f8a6b;
+  --ok: #7ce3ad;
+  --busy: #4a6f8c;
+  --danger: #ffb4a8;
+  --glass: rgba(17, 57, 90, 0.72);
+
+  --display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --display-weight: 900;
+  --display-case: uppercase;
+  --display-track: 0.01em;
+  --display-style: normal;
+  --body: "Barlow", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", monospace;
+  --radius: 14px;
+  --radius-sm: 8px;
+}
+:root[data-look="premium"] {
+  color-scheme: light;
+  --bg: #eef0ec;
+  --surface: #ffffff;
+  --surface-2: #f6f7f4;
+  --line: #d3d9d2;
+  --fg: #17241e;
+  --muted: #56645c;
+  --accent: #1f4d3a;
+  --accent-ink: #ffffff;
+  --accent-2: #8a6a2e;
+  --court: #c9d6cd;
+  --court-line: #ffffff;
+  --kitchen: #9fbaa9;
+  --ok: #1f7a4f;
+  --busy: #c3cbc5;
+  --danger: #a3372a;
+  --glass: rgba(255, 255, 255, 0.86);
+
+  --display: "Bodoni Moda", "Didot", Georgia, serif;
+  --display-weight: 500;
+  --display-case: none;
+  --display-track: -0.01em;
+  --display-style: normal;
+  --body: "Manrope", "Segoe UI", system-ui, sans-serif;
+  --radius: 4px;
+  --radius-sm: 3px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.55;
+  transition: background-color .35s ease, color .35s ease;
+}
+.wrap { max-width: 1180px; margin-inline: auto; padding-inline: 20px; }
+a { color: inherit; }
+h1, h2, h3 {
+  font-family: var(--display);
+  font-weight: var(--display-weight);
+  text-transform: var(--display-case);
+  letter-spacing: var(--display-track);
+  line-height: 1.02;
+  text-wrap: balance;
+  margin: 0;
+}
+h2 { font-size: clamp(2rem, 4.6vw, 3.4rem); }
+h3 { font-size: 1.45rem; line-height: 1.1; }
+p { margin: 0; }
+.eyebrow {
+  font-family: var(--mono);
+  font-size: .76rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.lede { color: var(--muted); max-width: 60ch; font-size: 1.08rem; }
+:focus-visible { outline: 3px solid var(--accent-2); outline-offset: 2px; }
+
+/* ---------- Sample banner + bar ---------- */
+.sample-banner {
+  background: var(--accent-2);
+  color: #1b1208;
+  font-family: var(--mono);
+  font-size: .74rem;
+  text-align: center;
+  padding: 6px 16px;
+}
+.bar {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 20;
+  background: var(--glass);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.bar .wrap { display: flex; align-items: center; gap: 20px; padding-block: 12px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--display); font-weight: var(--display-weight); text-transform: var(--display-case); font-size: 1.35rem; letter-spacing: var(--display-track); white-space: nowrap; }
+.brand svg { flex: none; }
+.nav { display: flex; gap: 18px; margin-left: auto; font-size: .95rem; }
+.nav a { text-decoration: none; color: var(--muted); }
+.nav a:hover { color: var(--fg); }
+.look {
+  display: inline-flex;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px;
+  background: var(--surface);
+}
+.look button {
+  font: 600 .8rem var(--body);
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.look button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font: 700 1rem var(--body);
+  border: 2px solid var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
+  padding: 12px 22px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.btn:hover { transform: translateY(-2px); box-shadow: 0 8px 22px -10px var(--accent); }
+.btn.ghost { background: transparent; color: var(--fg); border-color: var(--line); }
+.btn.ghost:hover { border-color: var(--fg); box-shadow: none; }
+.btn.small { padding: 8px 14px; font-size: .9rem; }
+.btn[disabled] { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
+
+/* ---------- Hero ---------- */
+.hero { padding-block: 56px 40px; }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+.hero h1 { font-size: clamp(3.4rem, 9vw, 7.4rem); line-height: .9; }
+:root[data-look="premium"] .hero h1 { font-size: clamp(3rem, 7.4vw, 6rem); line-height: .98; }
+.hero h1 .word { display: inline-block; }
+.hero h1 em { font-style: italic; color: var(--accent); }
+:root:not([data-look="premium"]) .hero h1 em { font-style: normal; color: var(--accent); }
+.hero .lede { margin-top: 20px; }
+.hero .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.hero-stats { display: flex; flex-wrap: wrap; gap: 28px; margin-top: 36px; }
+.hero-stats div { display: grid; }
+.hero-stats b { font-family: var(--display); font-weight: var(--display-weight); font-size: 2.2rem; line-height: 1; }
+.hero-stats span { color: var(--muted); font-size: .85rem; }
+
+.court-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: calc(var(--radius) + 6px);
+  padding: 20px;
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+.court-card header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.live { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: .8rem; color: var(--ok); }
+.live i { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); box-shadow: 0 0 0 0 var(--ok); animation: pulse 2s infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--ok) 60%, transparent); } 100% { box-shadow: 0 0 0 10px transparent; } }
+.court-svg { width: 100%; height: auto; max-width: 100%; display: block; }
+.court-svg text { font-family: var(--mono); font-size: 9px; fill: var(--muted); }
+.ball { animation: rally 3.2s ease-in-out infinite; }
+@keyframes rally {
+  0%   { transform: translate(60px, 120px); }
+  50%  { transform: translate(370px, 70px); }
+  100% { transform: translate(60px, 120px); }
+}
+.ball-shadow { animation: rally-shadow 3.2s ease-in-out infinite; }
+@keyframes rally-shadow {
+  0%   { transform: translate(60px, 132px); }
+  50%  { transform: translate(370px, 82px); }
+  100% { transform: translate(60px, 132px); }
+}
+.court-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.court-chip {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 8px 10px;
+  display: grid;
+  gap: 2px;
+  font-size: .8rem;
+  background: var(--surface-2);
+}
+.court-chip b { font-family: var(--mono); font-weight: 500; font-size: .78rem; }
+.court-chip .st { font-weight: 700; }
+.court-chip.open .st { color: var(--ok); }
+.court-chip.busy .st { color: var(--muted); }
+
+/* ---------- Sections ---------- */
+section { padding-block: 72px; }
+.section-head { display: grid; gap: 14px; margin-bottom: 36px; max-width: 760px; }
+
+/* Bento */
+.bento { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); grid-auto-rows: minmax(150px, auto); gap: 14px; }
+.tile {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  display: flex; flex-direction: column; justify-content: space-between; gap: 14px;
+  min-width: 0;
+  transition: transform .2s ease, border-color .2s ease;
+}
+.tile:hover { transform: translateY(-3px); border-color: var(--accent); }
+.tile .num { font-family: var(--display); font-weight: var(--display-weight); font-size: clamp(3rem, 6vw, 4.6rem); line-height: .9; color: var(--accent); }
+.tile p { color: var(--muted); font-size: .95rem; }
+.tile h3 { font-size: 1.3rem; }
+.t-a { grid-column: span 3; grid-row: span 2; background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.t-a .num, .t-a p { color: var(--accent-ink); }
+.t-a .num { font-size: clamp(5rem, 12vw, 9rem); }
+.t-b { grid-column: span 3; }
+.t-c { grid-column: span 2; }
+.t-d { grid-column: span 1; }
+.t-e { grid-column: span 2; }
+.t-f { grid-column: span 2; }
+.t-g { grid-column: span 2; }
+.dupr { display: flex; gap: 4px; align-items: flex-end; height: 44px; }
+.dupr span { flex: 1; background: var(--court); border-radius: 3px 3px 0 0; }
+.dupr span.on { background: var(--accent-2); }
+
+/* Programs */
+.programs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.program {
+  border-top: 3px solid var(--accent);
+  background: var(--surface);
+  padding: 22px;
+  display: grid; gap: 12px; align-content: start;
+  border-radius: 0 0 var(--radius) var(--radius);
+  min-width: 0;
+}
+.program dl { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 0; font-size: .88rem; }
+.program dt { color: var(--muted); }
+.program dd { margin: 0; font-family: var(--mono); font-size: .82rem; }
+.program p { color: var(--muted); font-size: .95rem; }
+
+/* Quotes */
+.quotes { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 40px; }
+.quote { padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); display: grid; gap: 12px; align-content: space-between; min-width: 0; }
+.quote blockquote { margin: 0; font-size: 1.05rem; }
+.quote footer { font-size: .85rem; color: var(--muted); display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.tag { font-family: var(--mono); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; border: 1px solid var(--line); border-radius: 999px; padding: 2px 8px; color: var(--muted); white-space: nowrap; }
+
+/* ---------- Booking ---------- */
+.booking-section { background: var(--surface-2); border-block: 1px solid var(--line); }
+.booking { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: calc(var(--radius) + 4px); padding: 24px; min-width: 0; }
+.stepper { display: flex; gap: 6px; margin: 0 0 24px; padding: 0; list-style: none; counter-reset: step; }
+.stepper li { flex: 1; min-width: 0; }
+.stepper button {
+  width: 100%;
+  display: grid; gap: 6px; text-align: left;
+  background: none; border: 0; padding: 0; color: var(--muted); cursor: pointer;
+  font: 600 .78rem var(--body);
+}
+.stepper button::before { content: ""; height: 4px; border-radius: 4px; background: var(--line); }
+.stepper button[data-state="done"]::before, .stepper button[data-state="current"]::before { background: var(--accent); }
+.stepper button[data-state="current"] { color: var(--fg); }
+.stepper button:disabled { cursor: default; }
+.step h3 { margin-bottom: 6px; }
+.step .hint { color: var(--muted); font-size: .92rem; margin-bottom: 18px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font: 600 .9rem var(--body);
+  border: 1px solid var(--line);
+  background: var(--surface-2);
+  color: var(--fg);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  cursor: pointer;
+  display: grid; gap: 2px; text-align: left;
+  transition: border-color .15s ease, background .15s ease, transform .15s ease;
+}
+.chip small { font-weight: 500; color: var(--muted); font-size: .76rem; }
+.chip:hover:not(:disabled) { border-color: var(--fg); }
+.chip[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.chip[aria-pressed="true"] small { color: var(--accent-ink); }
+.chip:disabled { opacity: .45; cursor: not-allowed; text-decoration: line-through; }
+.date-chip { min-width: 74px; text-align: center; }
+.date-chip b { font-family: var(--display); font-weight: var(--display-weight); font-size: 1.6rem; line-height: 1; }
+.slots { display: grid; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); gap: 8px; }
+.slot { font-family: var(--mono); font-weight: 500; }
+.peak-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-2); margin-right: 4px; vertical-align: middle; }
+.legend { display: flex; flex-wrap: wrap; gap: 16px; font-size: .8rem; color: var(--muted); margin-top: 14px; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: var(--radius-sm); overflow: hidden; margin-bottom: 16px; }
+.seg button { font: 600 .88rem var(--body); padding: 8px 16px; border: 0; background: var(--surface-2); color: var(--muted); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.courts-pick { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.court-pick { padding: 0; overflow: hidden; }
+.court-pick svg { display: block; width: 100%; height: auto; }
+.court-pick .meta { padding: 8px 10px; display: grid; gap: 2px; }
+.counter { display: flex; align-items: center; gap: 14px; }
+.counter button { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: var(--surface-2); color: var(--fg); font-size: 1.2rem; cursor: pointer; }
+.counter output { font-family: var(--display); font-weight: var(--display-weight); font-size: 2rem; min-width: 1.5ch; text-align: center; }
+.row { display: flex; flex-wrap: wrap; gap: 28px; align-items: center; margin-bottom: 20px; }
+.row > div { display: grid; gap: 8px; }
+.label { font-weight: 600; font-size: .9rem; }
+.switch { display: inline-flex; align-items: center; gap: 10px; cursor: pointer; font-size: .95rem; }
+.switch input { width: 20px; height: 20px; accent-color: var(--accent); }
+.form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.field { display: grid; gap: 6px; min-width: 0; }
+.field.full { grid-column: 1 / -1; }
+.field label { font-weight: 600; font-size: .88rem; }
+.field input, .field textarea {
+  font: 500 1rem var(--body);
+  color: var(--fg);
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 11px 12px;
+  width: 100%;
+}
+.field input:focus, .field textarea:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: var(--accent); }
+.field .err { color: var(--danger); font-size: .82rem; min-height: 1.1em; }
+.field input[aria-invalid="true"] { border-color: var(--danger); }
+.step-nav { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--line); flex-wrap: wrap; }
+.step-nav .need { color: var(--muted); font-size: .88rem; }
+
+.summary { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 84px); display: grid; gap: 16px; }
+.summary dl { display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; margin: 0; font-size: .92rem; }
+.summary dt { color: var(--muted); }
+.summary dd { margin: 0; text-align: right; font-weight: 600; }
+.summary .empty { color: var(--muted); font-weight: 400; }
+.price { border-top: 1px dashed var(--line); padding-top: 14px; display: grid; gap: 6px; font-size: .9rem; font-variant-numeric: tabular-nums; }
+.price div { display: flex; justify-content: space-between; gap: 12px; }
+.price .total { font-size: 1.1rem; font-weight: 700; padding-top: 8px; border-top: 1px solid var(--line); }
+.price .total span:last-child { font-family: var(--display); font-weight: var(--display-weight); font-size: 1.9rem; color: var(--accent); }
+:root[data-look="premium"] .price .total span:last-child { color: var(--fg); }
+.split { color: var(--muted); font-size: .82rem; text-align: right; }
+.policy { font-size: .8rem; color: var(--muted); }
+
+.confirm { text-align: center; display: grid; gap: 16px; justify-items: center; padding-block: 20px; }
+.confirm .check { width: 76px; height: 76px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; }
+.confirm .code { font-family: var(--mono); font-size: 1.3rem; letter-spacing: .1em; border: 1px dashed var(--line); border-radius: var(--radius-sm); padding: 10px 18px; }
+.confirm .actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+.note { font-size: .82rem; color: var(--muted); max-width: 46ch; }
+.toast { min-height: 1.3em; font-size: .88rem; color: var(--ok); }
+
+/* ---------- Why custom ---------- */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 720px; font-size: .93rem; }
+th, td { padding: 14px 16px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+thead th { font-family: var(--mono); font-weight: 500; font-size: .76rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); background: var(--surface-2); }
+thead th.us { color: var(--accent); }
+:root[data-look="premium"] thead th.us { color: var(--accent-2); }
+tbody th { font-weight: 600; width: 22%; }
+td.us { background: color-mix(in srgb, var(--accent) 9%, transparent); font-weight: 600; }
+tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
+sup a { font-family: var(--mono); font-size: .7rem; color: var(--accent-2); text-decoration: none; }
+.sources { margin-top: 18px; font-size: .8rem; color: var(--muted); display: grid; gap: 4px; padding-left: 18px; }
+.sources a { color: var(--muted); }
+
+/* ---------- Roadmap ---------- */
+.phases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.phase { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; display: grid; gap: 16px; align-content: start; min-width: 0; }
+.phase.now { border-color: var(--accent); box-shadow: inset 0 4px 0 var(--accent); }
+.phase header { display: grid; gap: 4px; }
+.phase .when { font-family: var(--mono); font-size: .8rem; color: var(--muted); }
+.features { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.features li { display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; padding: 11px 0; border-top: 1px solid var(--line); }
+.features li:first-child { border-top: 0; padding-top: 0; }
+.features b { font-size: .95rem; }
+.features p { grid-column: 1 / -1; color: var(--muted); font-size: .85rem; }
+.size { font-family: var(--mono); font-size: .72rem; border-radius: 4px; padding: 1px 7px; align-self: start; border: 1px solid var(--line); }
+.size.S { color: var(--ok); }
+.size.M { color: var(--accent-2); }
+.size.L { color: var(--danger); }
+.shown { font-family: var(--mono); font-size: .68rem; color: var(--accent); text-decoration: none; }
+:root[data-look="premium"] .shown { color: var(--accent-2); }
+
+footer.site { border-top: 1px solid var(--line); padding-block: 36px; color: var(--muted); font-size: .85rem; }
+footer.site .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
+
+/* ---------- Motion: one orchestrated moment on load (headline), plus hover. Bold only. ---------- */
+:root:not([data-look="premium"]) .hero h1 .word { animation: rise .7s cubic-bezier(.2, .8, .2, 1) both; }
+:root:not([data-look="premium"]) .hero h1 .word:nth-child(2) { animation-delay: .08s; }
+:root:not([data-look="premium"]) .hero h1 .word:nth-child(3) { animation-delay: .16s; }
+@keyframes rise { from { transform: translateY(.35em) skewY(4deg); } to { transform: none; } }
+:root[data-look="premium"] .ball, :root[data-look="premium"] .ball-shadow { animation-duration: 6s; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  .ball { transform: translate(370px, 70px); }
+  .ball-shadow { transform: translate(370px, 82px); }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 960px) {
+  .hero .wrap, .booking { grid-template-columns: minmax(0, 1fr); }
+  .summary { position: static; }
+  .programs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .phases { grid-template-columns: minmax(0, 1fr); }
+  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .t-a, .t-b { grid-column: span 2; }
+  .t-a { grid-row: span 1; }
+  .t-c, .t-d, .t-e, .t-f, .t-g { grid-column: span 1; }
+  .t-g { grid-column: span 2; }
+  .nav { display: none; }
+  .bar .wrap { justify-content: space-between; }
+}
+@media (max-width: 640px) {
+  .wrap { padding-inline: 16px; }
+  section { padding-block: 52px; }
+  .hero { padding-block: 36px 24px; }
+  .programs, .quotes, .form { grid-template-columns: minmax(0, 1fr); }
+  .courts-pick, .court-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bento { grid-template-columns: minmax(0, 1fr); }
+  .t-a, .t-b, .t-c, .t-d, .t-e, .t-f, .t-g { grid-column: span 1; }
+  .stepper button { font-size: 0; gap: 0; }
+  .stepper button[data-state="current"] { font-size: .78rem; gap: 6px; }
+  .bar .btn.small { display: none; }
+  .brand { font-size: 1.1rem; }
+  .panel { padding: 18px; }
+}
+</style>
+
+<div class="sample-banner">Concept mockup · invented club · sample data and prices · nothing here is a real booking</div>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Third Shot Social home">
+      <svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true">
+        <circle cx="15" cy="15" r="13" fill="var(--accent)"/>
+        <g fill="var(--accent-ink)"><circle cx="10" cy="10" r="1.7"/><circle cx="18" cy="9" r="1.7"/><circle cx="21" cy="16" r="1.7"/><circle cx="12" cy="17" r="1.7"/><circle cx="17" cy="22" r="1.7"/><circle cx="8" cy="22" r="1.4"/></g>
+      </svg>
+      Third Shot Social
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <a href="#club">The club</a>
+      <a href="#programs">Programs</a>
+      <a href="#book">Book</a>
+      <a href="#why">Why custom</a>
+      <a href="#roadmap">Roadmap</a>
+    </nav>
+    <div class="look" role="group" aria-label="Design look">
+      <button type="button" id="look-bold" data-look="bold" aria-pressed="true">Bold</button>
+      <button type="button" id="look-premium" data-look="premium" aria-pressed="false">Clubhouse</button>
+    </div>
+    <a class="btn small" href="#book">Book a court</a>
+  </div>
+</header>
+
+<main id="top">
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Indoor &amp; outdoor pickleball · Riverside</p>
+        <h1 style="margin-top:14px"><span class="word">Own</span> <span class="word">the</span> <span class="word"><em>kitchen.</em></span></h1>
+        <p class="lede">Eight courts, open play every day, and clinics for every DUPR level. Book a court in four taps and be on it tonight.</p>
+        <div class="ctas">
+          <a class="btn" href="#book">Book a court
+            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8.5 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+          <a class="btn ghost" href="#programs">See open play</a>
+        </div>
+        <div class="hero-stats">
+          <div><b>8</b><span>courts</span></div>
+          <div><b>6am–10pm</b><span>every day</span></div>
+          <div><b>2.0–5.0</b><span>DUPR clinics</span></div>
+        </div>
+      </div>
+
+      <div class="court-card" aria-label="Court availability right now (sample)">
+        <header>
+          <span class="eyebrow">Court 3 · regulation 20 × 44 ft</span>
+          <span class="live"><i></i><span id="open-count">5 of 8 open now</span></span>
+        </header>
+        <svg class="court-svg" viewBox="-14 -16 468 236" role="img" aria-label="Top-down pickleball court diagram with the 7-foot non-volley zone on each side of the net">
+          <rect x="0" y="0" width="440" height="200" fill="var(--court)" rx="2"/>
+          <rect x="150" y="0" width="140" height="200" fill="var(--kitchen)"/>
+          <g fill="none" stroke="var(--court-line)" stroke-width="2.5">
+            <rect x="0" y="0" width="440" height="200"/>
+            <line x1="150" y1="0" x2="150" y2="200"/>
+            <line x1="290" y1="0" x2="290" y2="200"/>
+            <line x1="0" y1="100" x2="150" y2="100"/>
+            <line x1="290" y1="100" x2="440" y2="100"/>
+          </g>
+          <line x1="220" y1="-8" x2="220" y2="208" stroke="var(--fg)" stroke-width="3.5" stroke-dasharray="2 3"/>
+          <text x="220" y="112" text-anchor="middle" fill="var(--fg)" style="fill:var(--fg);font-weight:500">KITCHEN</text>
+          <text x="185" y="-5" text-anchor="middle">7 ft</text>
+          <text x="255" y="-5" text-anchor="middle">7 ft</text>
+          <text x="75" y="-5" text-anchor="middle">15 ft</text>
+          <text x="220" y="218" text-anchor="middle">44 ft baseline to baseline</text>
+          <text x="-6" y="104" text-anchor="end" transform="rotate(-90 -6 100)">20 ft</text>
+          <ellipse class="ball-shadow" cx="0" cy="0" rx="7" ry="2.5" fill="#000" opacity=".22"/>
+          <g class="ball">
+            <circle r="7" fill="var(--accent)" stroke="var(--accent-ink)" stroke-width="1"/>
+            <g fill="var(--accent-ink)" opacity=".6"><circle cx="-2.5" cy="-2" r="1"/><circle cx="2.5" cy="-1" r="1"/><circle cx="0" cy="3" r="1"/></g>
+          </g>
+        </svg>
+        <div class="court-grid" id="court-grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CLUB / BENTO ================= -->
+  <section id="club">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">The club</p>
+        <h2>Built for the third shot, the fourth beer and everything between.</h2>
+      </div>
+      <div class="bento">
+        <article class="tile t-a">
+          <p class="eyebrow" style="color:inherit;opacity:.75">Courts</p>
+          <div>
+            <div class="num">8</div>
+            <p style="font-size:1.1rem;max-width:32ch">Six cushioned indoor courts and two lit outdoor courts. Every one is regulation size with permanent nets.</p>
+          </div>
+        </article>
+        <article class="tile t-b">
+          <h3>Open play, seven days</h3>
+          <p>Paddle-stack rotation by level. Walk in solo and you're playing in under ten minutes.</p>
+        </article>
+        <article class="tile t-c">
+          <div class="num">10pm</div>
+          <p>Outdoor courts lit until close, all year.</p>
+        </article>
+        <article class="tile t-d">
+          <div class="num">30+</div>
+          <p>Demo paddles to try.</p>
+        </article>
+        <article class="tile t-e">
+          <h3>Clinics by DUPR level</h3>
+          <div class="dupr" aria-label="Clinic levels from DUPR 2.0 to 5.0">
+            <span style="height:30%"></span><span class="on" style="height:45%"></span><span class="on" style="height:60%"></span><span class="on" style="height:75%"></span><span style="height:90%"></span><span style="height:100%"></span>
+          </div>
+          <p>2.0 beginner through 5.0 tournament prep.</p>
+        </article>
+        <article class="tile t-f">
+          <h3>Leagues &amp; ladders</h3>
+          <p>Eight-week seasons. Mixed, men's, women's, 50+.</p>
+        </article>
+        <article class="tile t-g">
+          <h3>Lounge &amp; café</h3>
+          <p>Watch Court 1 from the bar. Cold drinks, hot coffee, real chairs.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= PROGRAMS ================= -->
+  <section id="programs" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Programs</p>
+        <h2>Find your game.</h2>
+      </div>
+      <div class="programs">
+        <article class="program">
+          <h3>Open play</h3>
+          <p>Drop in, stack your paddle, rotate every game.</p>
+          <dl><dt>Level</dt><dd>All, split by DUPR</dd><dt>When</dt><dd>Daily 7–10am, 6–9pm</dd><dt>Price</dt><dd>$12 · members free</dd></dl>
+        </article>
+        <article class="program">
+          <h3>Clinics</h3>
+          <p>90 minutes of drills and live play with a certified coach.</p>
+          <dl><dt>Level</dt><dd>2.0 · 3.0 · 3.5 · 4.0+</dd><dt>When</dt><dd>Tue/Thu 7pm, Sat 9am</dd><dt>Price</dt><dd>$35</dd></dl>
+        </article>
+        <article class="program">
+          <h3>Leagues</h3>
+          <p>Fixed partners, weekly matches, playoffs in week eight.</p>
+          <dl><dt>Level</dt><dd>3.0 to 4.5</dd><dt>When</dt><dd>Mon/Wed nights</dd><dt>Price</dt><dd>$120 / season</dd></dl>
+        </article>
+        <article class="program">
+          <h3>Private lessons</h3>
+          <p>Fix your third-shot drop, one coach, one hour.</p>
+          <dl><dt>Level</dt><dd>Any</dd><dt>When</dt><dd>By appointment</dd><dt>Price</dt><dd>$75 / hr</dd></dl>
+        </article>
+      </div>
+      <div class="quotes">
+        <figure class="quote">
+          <blockquote>"Booked a court from the parking lot and was dinking two minutes later."</blockquote>
+          <footer><span>Member, 3.5</span><span class="tag">Sample quote</span></footer>
+        </figure>
+        <figure class="quote">
+          <blockquote>"The 3.0 clinic finally got my drops landing in the kitchen."</blockquote>
+          <footer><span>Clinic player</span><span class="tag">Sample quote</span></footer>
+        </figure>
+        <figure class="quote">
+          <blockquote>"Open play actually sorts by level. No more 5.0s wrecking my Tuesday."</blockquote>
+          <footer><span>Open-play regular</span><span class="tag">Sample quote</span></footer>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BOOKING ================= -->
+  <section id="book" class="booking-section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Reserve a court</p>
+        <h2>Pick a time. We'll hold the court.</h2>
+        <p class="lede">Sample flow with fake availability. Peak hours are weekdays 5–10pm and weekends 8am–12pm.</p>
+      </div>
+      <div class="booking">
+        <div class="panel">
+          <ol class="stepper" id="stepper" aria-label="Booking steps"></ol>
+          <div id="step-body"></div>
+          <div class="step-nav" id="step-nav">
+            <button type="button" class="btn ghost small" id="back">Back</button>
+            <span class="need" id="need" aria-live="polite"></span>
+            <button type="button" class="btn" id="next">Continue</button>
+          </div>
+        </div>
+        <aside class="panel summary" aria-label="Booking summary">
+          <p class="eyebrow">Your booking</p>
+          <dl id="sum-list"></dl>
+          <div class="price" id="price"></div>
+          <p class="policy">Free cancellation up to 12 hours before your start time.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHY CUSTOM ================= -->
+  <section id="why">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">For the club owner</p>
+        <h2>Why a site of your own?</h2>
+        <p class="lede">Off-the-shelf booking apps are quick to start. A custom site keeps your brand, your players and your margin. Here's the honest comparison.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col" class="us">Your custom site</th>
+              <th scope="col">Booking marketplace (e.g. Playtomic)</th>
+              <th scope="col">Booking software (e.g. CourtReserve, PlayByPoint)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Whose brand players see</th>
+              <td class="us">Yours, on every page and email</td>
+              <td>The marketplace's app, listed next to nearby clubs<sup><a href="#s1">1</a></sup></td>
+              <td>Yours in an embedded widget; a fully branded app only on top tiers<sup><a href="#s3">3</a></sup></td>
+            </tr>
+            <tr>
+              <th scope="row">Fee on each booking</th>
+              <td class="us">None. Card processing only</td>
+              <td>About 4% per booking, as reported by a competitor<sup><a href="#s1">1</a></sup></td>
+              <td>No booking commission listed; card processing applies<sup><a href="#s3">3</a></sup></td>
+            </tr>
+            <tr>
+              <th scope="row">Monthly cost</th>
+              <td class="us">Hosting and support retainer, quoted per club</td>
+              <td>€59–279 per month reported, on top of the fee<sup><a href="#s1">1</a></sup></td>
+              <td>From about $99 to $400+ per month by tier<sup><a href="#s2">2</a>,<a href="#s4">4</a></sup>, with paid add-ons reported<sup><a href="#s5">5</a></sup></td>
+            </tr>
+            <tr>
+              <th scope="row">Who owns the player list</th>
+              <td class="us">You do, in your own database</td>
+              <td>Shared with the platform</td>
+              <td>You, inside the vendor's system</td>
+            </tr>
+            <tr>
+              <th scope="row">Fits your club's rules</th>
+              <td class="us">Built around them: your peak hours, guest policy, open-play format</td>
+              <td>Platform's rules</td>
+              <td>Configurable within the product's settings</td>
+            </tr>
+            <tr>
+              <th scope="row">Where off-the-shelf wins</th>
+              <td class="us">Takes 6–8 weeks to launch</td>
+              <td>Brings new players through discovery</td>
+              <td>Live in days, with league and payment features ready</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ol class="sources">
+        <li id="s1"><a href="https://bookandgo.app/en/compare/playtomic" target="_blank" rel="noopener">Book &amp; Go, "Playtomic comparison"</a>: competitor claim; confirm with Playtomic.</li>
+        <li id="s2"><a href="https://playbypoint.com/pricing" target="_blank" rel="noopener">PlayByPoint pricing page</a>: Starter $99.99 to Advanced $399.99 per month.</li>
+        <li id="s3"><a href="https://www.bookandgo.app/en/compare/play-by-point" target="_blank" rel="noopener">Book &amp; Go, "PlayByPoint comparison" (Aug 2026)</a>: white-label app on Premium only; processing fees. Competitor claim.</li>
+        <li id="s4"><a href="https://courtreserve.com/pricing-update/" target="_blank" rel="noopener">CourtReserve, "Pricing Update"</a>: Start / Grow / Scale / Enterprise tiers; Start at $99 per month.</li>
+        <li id="s5"><a href="https://www.raklet.com/?p=58792" target="_blank" rel="noopener">Raklet CourtReserve guide</a>: $25 per month per integration. Competitor claim.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ================= ROADMAP ================= -->
+  <section id="roadmap" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">What's next</p>
+        <h2>From mockup to match point.</h2>
+        <p class="lede">What you're looking at is the proof of concept. Sizes are rough: S is days, M is about a week, L is two weeks or more.</p>
+      </div>
+      <div class="phases">
+        <article class="phase now">
+          <header><h3>Proof of concept</h3><span class="when">Now · this page</span></header>
+          <ul class="features">
+            <li><b>Branded home page, two looks</b><span class="size M">M</span><p>Shows the club at its best in either style. <a class="shown" href="#top">See it ↑</a></p></li>
+            <li><b>Live court availability preview</b><span class="size S">S</span><p>Players see open courts before they tap anything. <a class="shown" href="#top">See it ↑</a></p></li>
+            <li><b>Four-tap court booking flow</b><span class="size M">M</span><p>Date, time, court, players. Fewer drop-offs than a phone call. <a class="shown" href="#book">See it ↑</a></p></li>
+            <li><b>Peak, off-peak and member pricing</b><span class="size S">S</span><p>Fills quiet hours and rewards members. <a class="shown" href="#book">See it ↑</a></p></li>
+            <li><b>Instant confirmation with booking code</b><span class="size S">S</span><p>Fewer "did my booking go through?" calls. <a class="shown" href="#book">See it ↑</a></p></li>
+            <li><b>Programs by DUPR level</b><span class="size S">S</span><p>New players find the right clinic on their own. <a class="shown" href="#programs">See it ↑</a></p></li>
+            <li><b>Phone-first layout</b><span class="size S">S</span><p>Most bookings happen on a phone in the parking lot.</p></li>
+          </ul>
+        </article>
+        <article class="phase">
+          <header><h3>MVP launch</h3><span class="when">About 6–8 weeks</span></header>
+          <ul class="features">
+            <li><b>Real booking engine</b><span class="size L">L</span><p>Live availability with no double bookings.</p></li>
+            <li><b>Online payments and refunds</b><span class="size L">L</span><p>Paid at booking, refunds follow your cancellation policy.</p></li>
+            <li><b>Admin court calendar</b><span class="size L">L</span><p>Block courts for maintenance, events and private hire.</p></li>
+            <li><b>Member accounts</b><span class="size M">M</span><p>Saved details, booking history, one-tap rebook.</p></li>
+            <li><b>Memberships and tiers</b><span class="size M">M</span><p>Recurring revenue with member pricing applied automatically.</p></li>
+            <li><b>Open-play sign-up with caps</b><span class="size M">M</span><p>No more overcrowded sessions.</p></li>
+            <li><b>Edit programs and events yourself</b><span class="size M">M</span><p>Change schedules without calling a developer.</p></li>
+            <li><b>Email and text reminders</b><span class="size S">S</span><p>Fewer no-shows.</p></li>
+          </ul>
+        </article>
+        <article class="phase">
+          <header><h3>Grow</h3><span class="when">Following 2–3 months</span></header>
+          <ul class="features">
+            <li><b>Partner finder by DUPR</b><span class="size L">L</span><p>Solo players find a game at their level.</p></li>
+            <li><b>Leagues and ladders</b><span class="size L">L</span><p>Schedules, scores and standings in one place.</p></li>
+            <li><b>Waitlist that fills cancellations</b><span class="size M">M</span><p>Courts released late still get booked.</p></li>
+            <li><b>Coach calendars and lesson booking</b><span class="size M">M</span><p>Lessons booked without back-and-forth texts.</p></li>
+            <li><b>Smart time suggestions</b><span class="size M">M</span><p>Suggests times based on each player's history.</p></li>
+            <li><b>Demand-based pricing</b><span class="size M">M</span><p>Prices that follow how busy each hour is.</p></li>
+            <li><b>Court use reports</b><span class="size M">M</span><p>See which courts and hours earn, and which sit empty.</p></li>
+            <li><b>Installable app with push alerts</b><span class="size M">M</span><p>On the home screen without an app store.</p></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <span>Third Shot Social is an invented club for this concept mockup.</span>
+    <span>Sample data · prices are examples · no booking is made</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  /* ---------- Look toggle ---------- */
+  var root = document.documentElement;
+  function setLook(look) {
+    if (look === "premium") root.setAttribute("data-look", "premium"); else root.removeAttribute("data-look");
+    document.querySelectorAll(".look button").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.look === look)); });
+    try { localStorage.setItem("tss-look", look); } catch (e) {}
+  }
+  document.querySelectorAll(".look button").forEach(function (b) { b.addEventListener("click", function () { setLook(b.dataset.look); }); });
+  var saved = null;
+  try { saved = localStorage.getItem("tss-look"); } catch (e) {}
+  if (saved === "premium") setLook("premium");
+
+  /* ---------- Fake availability ---------- */
+  var COURTS = [1, 2, 3, 4, 5, 6, 7, 8];
+  function isIndoor(c) { return c <= 6; }
+  function hash(s) { var h = 2166136261; for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return (h >>> 0) / 4294967295; }
+  function iso(d) { return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+  function busy(dateIso, hour, court) {
+    var base = hash(dateIso + "|" + hour + "|" + court);
+    var evening = hour >= 17 && hour <= 20 ? 0.22 : 0;
+    return base < 0.32 + evening;
+  }
+  function courtFree(dateIso, hour, court, dur) {
+    if (busy(dateIso, hour, court)) return false;
+    if (dur === 90 && (hour + 1 > 21 || busy(dateIso, hour + 1, court))) return false;
+    return true;
+  }
+  function isPeak(date, hour) {
+    var wd = date.getDay();
+    if (wd === 0 || wd === 6) return hour >= 8 && hour < 12;
+    return hour >= 17;
+  }
+  function fmtHour(h, m) {
+    var ap = h >= 12 ? "pm" : "am"; var hh = h % 12 === 0 ? 12 : h % 12;
+    return hh + (m ? ":" + String(m).padStart(2, "0") : "") + ap;
+  }
+  function endLabel(h, dur) { var mins = h * 60 + dur; return fmtHour(Math.floor(mins / 60), mins % 60); }
+  function money(n) { return "$" + n.toFixed(2).replace(/\.00$/, ""); }
+
+  /* ---------- Hero court chips ---------- */
+  (function () {
+    var now = new Date(); var h = Math.min(Math.max(now.getHours(), 6), 21);
+    var di = iso(now); var open = 0; var html = "";
+    COURTS.forEach(function (c) {
+      var b = busy(di, h, c); if (!b) open++;
+      html += '<div class="court-chip ' + (b ? "busy" : "open") + '"><b>Court ' + c + '</b><span class="st">' + (b ? "In play" : "Open") + '</span><span style="color:var(--muted)">' + (isIndoor(c) ? "Indoor" : "Outdoor") + "</span></div>";
+    });
+    document.getElementById("court-grid").innerHTML = html;
+    document.getElementById("open-count").textContent = open + " of 8 open now";
+  })();
+
+  /* ---------- Booking state ---------- */
+  var today = new Date(); today.setHours(0, 0, 0, 0);
+  var days = [];
+  for (var i = 0; i < 7; i++) { var d = new Date(today); d.setDate(today.getDate() + i); days.push(d); }
+  var RATE_PEAK = 40, RATE_OFF = 28, MEMBER_OFF = 0.2, PADDLE = 5;
+
+  var state = {
+    step: 0,
+    date: days[1],
+    dur: 60,
+    hour: null,
+    court: null,
+    players: 4,
+    member: false,
+    paddles: 0,
+    name: "", email: "", phone: "", notes: "",
+    done: false,
+    code: ""
+  };
+  var STEPS = ["Date", "Time", "Court", "Players", "Details"];
+
+  function valid(step) {
+    if (step === 0) return !!state.date;
+    if (step === 1) return state.hour !== null;
+    if (step === 2) return state.court !== null;
+    if (step === 3) return state.players >= 2;
+    if (step === 4) return !fieldErrors().any;
+    return true;
+  }
+  function needText(step) {
+    return ["Pick a day to continue.", "Pick a start time to continue.", "Pick a court to continue.", "", "Fill in your name, email and phone to confirm."][step];
+  }
+  function fieldErrors() {
+    var e = { name: "", email: "", phone: "" };
+    if (state.name.trim().length < 2) e.name = "Enter your full name.";
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(state.email.trim())) e.email = "Enter an email like you@example.com.";
+    if (state.phone.replace(/\D/g, "").length < 10) e.phone = "Enter a 10-digit phone number.";
+    e.any = !!(e.name || e.email || e.phone);
+    return e;
+  }
+  function price() {
+    if (state.hour === null) return null;
+    var rate = isPeak(state.date, state.hour) ? RATE_PEAK : RATE_OFF;
+    var court = rate * state.dur / 60;
+    var disc = state.member ? court * MEMBER_OFF : 0;
+    var pad = state.paddles * PADDLE;
+    var total = court - disc + pad;
+    return { rate: rate, peak: rate === RATE_PEAK, court: court, disc: disc, pad: pad, total: total, each: total / state.players };
+  }
+
+  var body = document.getElementById("step-body");
+  var stepper = document.getElementById("stepper");
+  var nextBtn = document.getElementById("next");
+  var backBtn = document.getElementById("back");
+  var need = document.getElementById("need");
+  var nav = document.getElementById("step-nav");
+  var touched = false;
+
+  function renderStepper() {
+    stepper.innerHTML = STEPS.map(function (s, i) {
+      var st = state.done ? "done" : i < state.step ? "done" : i === state.step ? "current" : "todo";
+      var can = !state.done && i < state.step;
+      return '<li><button type="button" data-go="' + i + '" data-state="' + st + '"' + (can ? "" : " disabled") + (i === state.step && !state.done ? ' aria-current="step"' : "") + ">" + (i + 1) + ". " + s + "</button></li>";
+    }).join("");
+    stepper.querySelectorAll("button[data-go]").forEach(function (b) {
+      b.addEventListener("click", function () { state.step = +b.dataset.go; render(); });
+    });
+  }
+
+  function renderStep() {
+    if (state.done) { renderConfirm(); return; }
+    var di = iso(state.date);
+    var h = "";
+    if (state.step === 0) {
+      h += '<div class="step"><h3>Which day?</h3><p class="hint">Courts open 7am to 10pm. Book up to 7 days ahead.</p><div class="chips">';
+      days.forEach(function (d, i) {
+        var label = i === 0 ? "Today" : i === 1 ? "Tomorrow" : d.toLocaleDateString(undefined, { weekday: "short" });
+        var sel = iso(d) === di;
+        h += '<button type="button" class="chip date-chip" id="date-' + i + '" data-day="' + i + '" aria-pressed="' + sel + '"><small>' + label + "</small><b>" + d.getDate() + "</b><small>" + d.toLocaleDateString(undefined, { month: "short" }) + "</small></button>";
+      });
+      h += "</div></div>";
+    }
+    if (state.step === 1) {
+      h += '<div class="step"><h3>What time?</h3><p class="hint">' + state.date.toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" }) + '. Times with no open court are crossed out.</p>';
+      h += '<div class="seg" role="group" aria-label="Session length"><button type="button" id="dur-60" data-dur="60" aria-pressed="' + (state.dur === 60) + '">60 min</button><button type="button" id="dur-90" data-dur="90" aria-pressed="' + (state.dur === 90) + '">90 min</button></div>';
+      h += '<div class="slots">';
+      for (var hr = 7; hr <= 20; hr++) {
+        if (state.dur === 90 && hr > 20) continue;
+        var free = COURTS.filter(function (c) { return courtFree(di, hr, c, state.dur); }).length;
+        var pk = isPeak(state.date, hr);
+        var rate = pk ? RATE_PEAK : RATE_OFF;
+        h += '<button type="button" class="chip slot" id="slot-' + hr + '" data-hour="' + hr + '" aria-pressed="' + (state.hour === hr) + '"' + (free ? "" : " disabled") + ">" + fmtHour(hr) +
+          "<small>" + (pk ? '<span class="peak-dot"></span>' : "") + money(rate * state.dur / 60) + " · " + (free ? free + " open" : "full") + "</small></button>";
+      }
+      h += '</div><div class="legend"><span><span class="peak-dot"></span>Peak $40/hr</span><span>Off-peak $28/hr</span><span>Members save 20%</span></div></div>';
+    }
+    if (state.step === 2) {
+      h += '<div class="step"><h3>Which court?</h3><p class="hint">' + fmtHour(state.hour) + "–" + endLabel(state.hour, state.dur) + '. Courts 1–6 are indoor and cushioned. Courts 7–8 are outdoor and lit.</p><div class="courts-pick">';
+      COURTS.forEach(function (c) {
+        var free = courtFree(di, state.hour, c, state.dur);
+        h += '<button type="button" class="chip court-pick" id="court-' + c + '" data-court="' + c + '" aria-pressed="' + (state.court === c) + '"' + (free ? "" : " disabled") + ' aria-label="Court ' + c + (free ? "" : ", taken") + '">' +
+          '<svg viewBox="0 0 88 40" aria-hidden="true"><rect width="88" height="40" fill="' + (free ? "var(--court)" : "var(--busy)") + '"/><rect x="30" width="28" height="40" fill="' + (free ? "var(--kitchen)" : "var(--busy)") + '"/><g stroke="var(--court-line)" stroke-width="1" fill="none"><rect x=".5" y=".5" width="87" height="39"/><line x1="30" y1="0" x2="30" y2="40"/><line x1="58" y1="0" x2="58" y2="40"/><line x1="0" y1="20" x2="30" y2="20"/><line x1="58" y1="20" x2="88" y2="20"/></g><line x1="44" y1="0" x2="44" y2="40" stroke="var(--fg)" stroke-width="1.5"/></svg>' +
+          '<span class="meta"><span>Court ' + c + "</span><small>" + (free ? (isIndoor(c) ? "Indoor" : "Outdoor, lit") : "Taken") + "</small></span></button>";
+      });
+      h += "</div></div>";
+    }
+    if (state.step === 3) {
+      h += '<div class="step"><h3>Who\'s playing?</h3><p class="hint">Doubles is four players. The summary shows each player\'s share.</p>';
+      h += '<div class="row"><div><span class="label" id="players-label">Players</span><div class="counter"><button type="button" id="pl-minus" aria-label="Fewer players">−</button><output id="pl-out" aria-labelledby="players-label">' + state.players + '</output><button type="button" id="pl-plus" aria-label="More players">+</button></div></div>';
+      h += '<div><span class="label" id="paddles-label">Demo paddles ($5 each)</span><div class="counter"><button type="button" id="pd-minus" aria-label="Fewer paddles">−</button><output id="pd-out" aria-labelledby="paddles-label">' + state.paddles + '</output><button type="button" id="pd-plus" aria-label="More paddles">+</button></div></div></div>';
+      h += '<label class="switch"><input type="checkbox" id="member"' + (state.member ? " checked" : "") + "> I'm a member (20% off the court fee)</label></div>";
+    }
+    if (state.step === 4) {
+      var e = touched ? fieldErrors() : { name: "", email: "", phone: "" };
+      h += '<div class="step"><h3>Your details</h3><p class="hint">We\'ll send your confirmation here. This is a mockup, so nothing is sent.</p><form class="form" id="details" novalidate>';
+      h += field("name", "Full name", "text", "name", e.name, "Jordan Rivera");
+      h += field("email", "Email", "email", "email", e.email, "jordan@example.com");
+      h += field("phone", "Mobile phone", "tel", "tel", e.phone, "(555) 014-2290");
+      h += '<div class="field full"><label for="f-notes">Notes for the front desk (optional)</label><textarea id="f-notes" rows="2" placeholder="Bringing a first-timer">' + esc(state.notes) + "</textarea></div>";
+      h += "</form></div>";
+    }
+    body.innerHTML = h;
+    wireStep();
+  }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function field(key, label, type, ac, err, ph) {
+    return '<div class="field"><label for="f-' + key + '">' + label + '</label><input id="f-' + key + '" type="' + type + '" autocomplete="' + ac + '" placeholder="' + ph + '" value="' + esc(state[key]) + '"' + (err ? ' aria-invalid="true" aria-describedby="e-' + key + '"' : "") + '><span class="err" id="e-' + key + '">' + err + "</span></div>";
+  }
+
+  function wireStep() {
+    body.querySelectorAll("[data-day]").forEach(function (b) { b.addEventListener("click", function () { state.date = days[+b.dataset.day]; state.hour = null; state.court = null; render(); }); });
+    body.querySelectorAll("[data-dur]").forEach(function (b) { b.addEventListener("click", function () { state.dur = +b.dataset.dur; state.hour = null; state.court = null; render(); }); });
+    body.querySelectorAll("[data-hour]").forEach(function (b) { b.addEventListener("click", function () { state.hour = +b.dataset.hour; state.court = null; render(); }); });
+    body.querySelectorAll("[data-court]").forEach(function (b) { b.addEventListener("click", function () { state.court = +b.dataset.court; render(); }); });
+    var m;
+    if ((m = document.getElementById("pl-minus"))) m.addEventListener("click", function () { state.players = Math.max(2, state.players - 1); render(); });
+    if ((m = document.getElementById("pl-plus"))) m.addEventListener("click", function () { state.players = Math.min(4, state.players + 1); render(); });
+    if ((m = document.getElementById("pd-minus"))) m.addEventListener("click", function () { state.paddles = Math.max(0, state.paddles - 1); render(); });
+    if ((m = document.getElementById("pd-plus"))) m.addEventListener("click", function () { state.paddles = Math.min(state.players, state.paddles + 1); render(); });
+    if ((m = document.getElementById("member"))) m.addEventListener("change", function (ev) { state.member = ev.target.checked; render(); });
+    ["name", "email", "phone", "notes"].forEach(function (k) {
+      var el = document.getElementById("f-" + k);
+      if (!el) return;
+      el.addEventListener("input", function () { state[k] = el.value; renderSummary(); renderNav(); });
+      el.addEventListener("blur", function () { if (k !== "notes" && el.value) { touched = true; refreshErrors(); } });
+    });
+    var f = document.getElementById("details");
+    if (f) f.addEventListener("submit", function (ev) { ev.preventDefault(); goNext(); });
+  }
+  function refreshErrors() {
+    var e = fieldErrors();
+    ["name", "email", "phone"].forEach(function (k) {
+      var el = document.getElementById("f-" + k), er = document.getElementById("e-" + k);
+      if (!el) return;
+      er.textContent = e[k];
+      if (e[k]) { el.setAttribute("aria-invalid", "true"); el.setAttribute("aria-describedby", "e-" + k); } else { el.removeAttribute("aria-invalid"); }
+    });
+  }
+
+  function renderSummary() {
+    var dl = document.getElementById("sum-list");
+    var none = '<span class="empty">Not chosen</span>';
+    dl.innerHTML =
+      "<dt>Day</dt><dd>" + state.date.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric" }) + "</dd>" +
+      "<dt>Time</dt><dd>" + (state.hour !== null ? fmtHour(state.hour) + "–" + endLabel(state.hour, state.dur) : none) + "</dd>" +
+      "<dt>Court</dt><dd>" + (state.court !== null ? "Court " + state.court + (isIndoor(state.court) ? " · indoor" : " · outdoor") : none) + "</dd>" +
+      "<dt>Players</dt><dd>" + state.players + (state.paddles ? " · " + state.paddles + " paddle" + (state.paddles > 1 ? "s" : "") : "") + "</dd>" +
+      (state.name ? "<dt>Name</dt><dd>" + esc(state.name) + "</dd>" : "");
+    var p = price(), pe = document.getElementById("price");
+    if (!p) { pe.innerHTML = '<div><span>Court fee</span><span class="empty" style="color:var(--muted)">Pick a time</span></div>'; return; }
+    pe.innerHTML =
+      "<div><span>Court, " + state.dur + " min " + (p.peak ? "(peak)" : "(off-peak)") + "</span><span>" + money(p.court) + "</span></div>" +
+      (p.disc ? "<div><span>Member 20% off</span><span>−" + money(p.disc) + "</span></div>" : "") +
+      (p.pad ? "<div><span>Demo paddles × " + state.paddles + "</span><span>" + money(p.pad) + "</span></div>" : "") +
+      '<div class="total"><span>Total</span><span>' + money(p.total) + "</span></div>" +
+      '<div class="split">' + money(p.each) + " each, split " + state.players + " ways</div>";
+  }
+
+  function renderNav() {
+    nav.hidden = state.done;
+    backBtn.style.visibility = state.step === 0 ? "hidden" : "visible";
+    var ok = valid(state.step);
+    nextBtn.textContent = state.step === STEPS.length - 1 ? "Confirm booking" : "Continue";
+    nextBtn.disabled = state.step !== 4 && !ok;
+    need.textContent = ok ? "" : needText(state.step);
+  }
+
+  function renderConfirm() {
+    var p = price();
+    body.innerHTML = '<div class="confirm" role="status">' +
+      '<div class="check"><svg width="36" height="36" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>' +
+      "<h3>You're on Court " + state.court + ".</h3>" +
+      "<p>" + state.date.toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" }) + ", " + fmtHour(state.hour) + "–" + endLabel(state.hour, state.dur) + " · " + money(p.total) + "</p>" +
+      '<span class="code" id="code">' + state.code + "</span>" +
+      '<div class="actions"><button type="button" class="btn small" id="copy">Copy booking code</button><button type="button" class="btn ghost small" id="again">Book another court</button></div>' +
+      '<p class="toast" id="toast" aria-live="polite"></p>' +
+      '<p class="note">Sample confirmation. No court was reserved and no message was sent to ' + esc(state.email) + ".</p></div>";
+    document.getElementById("copy").addEventListener("click", function () {
+      var t = document.getElementById("toast");
+      var done = function () { t.textContent = "Booking code copied."; };
+      try {
+        navigator.clipboard.writeText(state.code).then(done, function () { selectCode(); t.textContent = "Code selected. Press Ctrl+C to copy."; });
+      } catch (e) { selectCode(); t.textContent = "Code selected. Press Ctrl+C to copy."; }
+    });
+    document.getElementById("again").addEventListener("click", function () {
+      state.done = false; state.step = 0; state.hour = null; state.court = null; touched = false; render();
+    });
+  }
+  function selectCode() { var r = document.createRange(); r.selectNodeContents(document.getElementById("code")); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+
+  function goNext() {
+    if (state.step === 4) {
+      touched = true;
+      if (fieldErrors().any) { refreshErrors(); renderNav(); var bad = body.querySelector('[aria-invalid="true"]'); if (bad) bad.focus(); return; }
+      state.code = "TSS-" + Math.floor(hash(state.email + Date.now()) * 1e6).toString().padStart(6, "0");
+      state.done = true; render(); return;
+    }
+    if (!valid(state.step)) return;
+    state.step++; render();
+    var h = body.querySelector("h3"); if (h) { h.setAttribute("tabindex", "-1"); h.focus({ preventScroll: true }); }
+  }
+  nextBtn.addEventListener("click", goNext);
+  backBtn.addEventListener("click", function () { if (state.step > 0) { state.step--; render(); } });
+
+  function render() { renderStepper(); renderStep(); renderSummary(); renderNav(); }
+  render();
+})();
+</script>
