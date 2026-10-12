@@ -8,7 +8,7 @@ Concept site for a pickleball club, used as a sales proof of concept.
 
 - Home page with two switchable looks: **Bold** and **Clubhouse**
 - Five-step court booking flow on fake availability and sample prices (no backend)
-- "Why custom" comparison against off-the-shelf booking apps, with sources
+- "Why a site of your own?" card linking to the club-owner comparison guide (separate page)
 - Phased feature roadmap (POC / MVP / Grow) with S/M/L sizes
 
 "Third Shot Social" is an invented club. All data and prices are samples.

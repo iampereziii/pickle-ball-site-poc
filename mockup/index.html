@@ -363,18 +363,25 @@ section { padding-block: 72px; }
 .toast { min-height: 1.3em; font-size: .88rem; color: var(--ok); }
 
 /* ---------- Why custom ---------- */
-.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
-table { border-collapse: collapse; width: 100%; min-width: 720px; font-size: .93rem; }
-th, td { padding: 14px 16px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
-thead th { font-family: var(--mono); font-weight: 500; font-size: .76rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); background: var(--surface-2); }
-thead th.us { color: var(--accent); }
-:root[data-look="premium"] thead th.us { color: var(--accent-2); }
-tbody th { font-weight: 600; width: 22%; }
-td.us { background: color-mix(in srgb, var(--accent) 9%, transparent); font-weight: 600; }
-tbody tr:last-child th, tbody tr:last-child td { border-bottom: 0; }
-sup a { font-family: var(--mono); font-size: .7rem; color: var(--accent-2); text-decoration: none; }
-.sources { margin-top: 18px; font-size: .8rem; color: var(--muted); display: grid; gap: 4px; padding-left: 18px; }
-.sources a { color: var(--muted); }
+.owner-card {
+  display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 0;
+  text-decoration: none; color: inherit;
+  border: 1px solid var(--line); border-radius: calc(var(--radius) + 4px); overflow: hidden;
+  background: var(--surface);
+  transition: border-color .2s ease, transform .2s ease;
+}
+.owner-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+.owner-points { display: grid; }
+.owner-points div { display: grid; gap: 2px; padding: 18px 22px; border-bottom: 1px solid var(--line); }
+.owner-points div:last-child { border-bottom: 0; }
+.owner-points span { color: var(--muted); font-size: .92rem; }
+.owner-points .ours { background: color-mix(in srgb, var(--accent) 12%, transparent); }
+.owner-cta { display: grid; gap: 12px; align-content: center; justify-items: start; padding: 26px; background: var(--surface-2); border-left: 1px solid var(--line); }
+.owner-title { font-family: var(--display); font-weight: var(--display-weight); text-transform: var(--display-case); font-size: clamp(1.8rem, 3.6vw, 2.6rem); line-height: 1; }
+@media (max-width: 640px) {
+  .owner-card { grid-template-columns: minmax(0, 1fr); }
+  .owner-cta { border-left: 0; border-top: 1px solid var(--line); }
+}
 
 /* ---------- Roadmap ---------- */
 .phases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
@@ -645,65 +652,20 @@ footer.site .wrap { display: flex; flex-wrap: wrap; justify-content: space-betwe
       <div class="section-head">
         <p class="eyebrow">For the club owner</p>
         <h2>Why a site of your own?</h2>
-        <p class="lede">Off-the-shelf booking apps are quick to start. A custom site keeps your brand, your players and your margin. Here's the honest comparison.</p>
+        <p class="lede">Every way of taking bookings online decides who keeps the player, the brand and the margin. We wrote up the honest comparison, including where off-the-shelf apps win.</p>
       </div>
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              <th scope="col"></th>
-              <th scope="col" class="us">Your custom site</th>
-              <th scope="col">Booking marketplace (e.g. Playtomic)</th>
-              <th scope="col">Booking software (e.g. CourtReserve, PlayByPoint)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row">Whose brand players see</th>
-              <td class="us">Yours, on every page and email</td>
-              <td>The marketplace's app, listed next to nearby clubs<sup><a href="#s1">1</a></sup></td>
-              <td>Yours in an embedded widget; a fully branded app only on top tiers<sup><a href="#s3">3</a></sup></td>
-            </tr>
-            <tr>
-              <th scope="row">Fee on each booking</th>
-              <td class="us">None. Card processing only</td>
-              <td>About 4% per booking, as reported by a competitor<sup><a href="#s1">1</a></sup></td>
-              <td>No booking commission listed; card processing applies<sup><a href="#s3">3</a></sup></td>
-            </tr>
-            <tr>
-              <th scope="row">Monthly cost</th>
-              <td class="us">Hosting and support retainer, quoted per club</td>
-              <td>€59–279 per month reported, on top of the fee<sup><a href="#s1">1</a></sup></td>
-              <td>From about $99 to $400+ per month by tier<sup><a href="#s2">2</a>,<a href="#s4">4</a></sup>, with paid add-ons reported<sup><a href="#s5">5</a></sup></td>
-            </tr>
-            <tr>
-              <th scope="row">Who owns the player list</th>
-              <td class="us">You do, in your own database</td>
-              <td>Shared with the platform</td>
-              <td>You, inside the vendor's system</td>
-            </tr>
-            <tr>
-              <th scope="row">Fits your club's rules</th>
-              <td class="us">Built around them: your peak hours, guest policy, open-play format</td>
-              <td>Platform's rules</td>
-              <td>Configurable within the product's settings</td>
-            </tr>
-            <tr>
-              <th scope="row">Where off-the-shelf wins</th>
-              <td class="us">Takes 6–8 weeks to launch</td>
-              <td>Brings new players through discovery</td>
-              <td>Live in days, with league and payment features ready</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <ol class="sources">
-        <li id="s1"><a href="https://bookandgo.app/en/compare/playtomic" target="_blank" rel="noopener">Book &amp; Go, "Playtomic comparison"</a>: competitor claim; confirm with Playtomic.</li>
-        <li id="s2"><a href="https://playbypoint.com/pricing" target="_blank" rel="noopener">PlayByPoint pricing page</a>: Starter $99.99 to Advanced $399.99 per month.</li>
-        <li id="s3"><a href="https://www.bookandgo.app/en/compare/play-by-point" target="_blank" rel="noopener">Book &amp; Go, "PlayByPoint comparison" (Aug 2026)</a>: white-label app on Premium only; processing fees. Competitor claim.</li>
-        <li id="s4"><a href="https://courtreserve.com/pricing-update/" target="_blank" rel="noopener">CourtReserve, "Pricing Update"</a>: Start / Grow / Scale / Enterprise tiers; Start at $99 per month.</li>
-        <li id="s5"><a href="https://www.raklet.com/?p=58792" target="_blank" rel="noopener">Raklet CourtReserve guide</a>: $25 per month per integration. Competitor claim.</li>
-      </ol>
+      <a class="owner-card" href="https://claude.ai/artifact/EyB2Yq3YfUkpXWGre8CuyF" target="_blank" rel="noopener">
+        <div class="owner-points">
+          <div><b>Marketplace</b><span>Brings new players, keeps a cut of each booking</span></div>
+          <div><b>Booking software</b><span>Flat monthly fee, player records on the vendor's system</span></div>
+          <div class="ours"><b>Your own site</b><span>Your brand, your player list, full margin</span></div>
+        </div>
+        <div class="owner-cta">
+          <span class="eyebrow">Read the comparison</span>
+          <span class="owner-title">Who owns the player?</span>
+          <span class="btn small">Open the guide ↗</span>
+        </div>
+      </a>
     </div>
   </section>
 
